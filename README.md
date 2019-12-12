@@ -1,2 +1,2 @@
 # camembert-for-all
-an apification for French camemBERT sentence encoding
+APIfication for French camemBERT sentence encoding as a service
