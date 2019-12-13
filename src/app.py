@@ -38,18 +38,21 @@ def embedding():
     #parameters
     content = request.args.get('q')
     
-    
     # encode() automatically adds the classification token <s>
-    token_ids = tokenizer.encode(content)
-    #tokens = [tokenizer._convert_id_to_token(idx) for idx in token_ids]
-    
+    token_ids = tokenizer.encode(text)
+    tokens = [tokenizer._convert_id_to_token(idx) for idx in token_ids]
+
     # unsqueeze token_ids because batch_size=1
     token_ids = torch.tensor(token_ids).unsqueeze(0)
+
+    # forward method returns a tuple (we only want the logits)
+    # squeeze() because batch_size=1
     output = model(token_ids)[0].squeeze()
+    # only grab output of CLS token (<s>), which is the first token
     cls_out = output[0]
     
     #json body return
-    body = {'content': content, 'embedding':cls_out.tolist()}
+    body = {'content': content, 'embedding':cls_out}
     
     return(jsonify(body))
     
