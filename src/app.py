@@ -13,10 +13,13 @@ import socket
 import tempfile
 from pathlib import Path
 import numpy as np
+import torch
 from transformers import CamembertModel, CamembertTokenizer
 
+
+#preload init models from docker
 model = CamembertModel.from_pretrained('/camembert-model')
-token = CamembertModel.from_pretrained('/camembert-model')
+tokenizer = CamembertModel.from_pretrained('/camembert-model')
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -32,3 +35,23 @@ def root():
 @app.route("/embedding")
 def embedding():
     
+    #parameters
+    content = request.args.get('q')
+    
+    
+    # encode() automatically adds the classification token <s>
+    token_ids = tokenizer.encode(content)
+    #tokens = [tokenizer._convert_id_to_token(idx) for idx in token_ids]
+    
+    # unsqueeze token_ids because batch_size=1
+    token_ids = torch.tensor(token_ids).unsqueeze(0)
+    output = model(token_ids)[0].squeeze()
+    cls_out = output[0]
+    
+    #json body return
+    body = {'content': content, 'embedding':cls_out.tolist()}
+    
+    return(jsonify(body))
+    
+if __name__ == "__main__":
+    app.run(debug=True, port=80, host='0.0.0.0', use_reloader=False)

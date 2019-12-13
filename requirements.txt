@@ -1,4 +1,5 @@
 keras
+sklearn
 flask
 flask_restful
 requests
