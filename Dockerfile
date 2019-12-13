@@ -1,16 +1,17 @@
 FROM pytorch/pytorch:latest
 
-RUN apt-get update && apt-get install -y --no-install-recommends
-
 COPY ./ /camembert-resources
 
 WORKDIR /camembert-resources
 
-RUN pip install --upgrade pip
+RUN apt-get update && apt-get install -y --no-install-recommends && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    mkdir /camembert-model
 
-RUN pip install -r requirements.txt
+WORKDIR /camembert-resources/src/
 
-RUN mkdir /camembert-model && \
-    python /camembert-resources/src/init_models.py
-    
 EXPOSE 80
+
+CMD ["python", "./init_models.py"]
+    
