@@ -19,7 +19,7 @@ from transformers import CamembertModel, CamembertTokenizer
 
 #preload init models from docker
 model = CamembertModel.from_pretrained('/camembert-model')
-tokenizer = CamembertModel.from_pretrained('/camembert-model')
+tokenizer = CamembertTokenizer.from_pretrained('/camembert-model')
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
