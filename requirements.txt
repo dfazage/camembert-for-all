@@ -1,0 +1,12 @@
+keras
+flask
+flask_restful
+requests
+opencv-python
+tensorflow
+tqdm
+fairseq
+regex
+sentencepiece
+transformers
+
