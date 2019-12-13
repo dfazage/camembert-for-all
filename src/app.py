@@ -52,7 +52,7 @@ def embedding():
     cls_out = output[0]
     
     #json body return
-    body = {'content': content, 'embedding':cls_out}
+    body = {'content': content, 'embedding':cls_out.data.numpy().tolist()}
     
     return(jsonify(body))
     
