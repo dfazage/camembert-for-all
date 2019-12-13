@@ -39,7 +39,7 @@ def embedding():
     content = request.args.get('q')
     
     # encode() automatically adds the classification token <s>
-    token_ids = tokenizer.encode(text)
+    token_ids = tokenizer.encode(content)
     tokens = [tokenizer._convert_id_to_token(idx) for idx in token_ids]
 
     # unsqueeze token_ids because batch_size=1
