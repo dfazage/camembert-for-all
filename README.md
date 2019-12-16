@@ -9,21 +9,21 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-docker
+ - Docker <br>
 All requirements can be found in requirements.txt. This version of CamemBERT Model uses the pre trained model from transformers package.
 
 ### Installing
 
 1. Clone git project
 2. Run docker image build: 
-'''console
+```console
 docker build -t caas1.0 .
-'''
+```
 3. Launch container with image, and expose ports for api listening:
-'''console
+```console
 docker run -i -t --name=camembert-for-all -p 12345:80 caas1.0
-'''
+```
 
 At this point, container should be executed on local machine, and ready for used. Check if http://localhost:12345/ returns a 'hello word' response.
 
-### Demonstration
+## Demonstration
